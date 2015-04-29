@@ -1,3 +1,4 @@
+import gzip
 import math
 import os
 import re
@@ -43,7 +44,7 @@ class SplitPoint:
     """ Read the statistics computed over gold data """
 
     yes_split, no_split = (LOW_VAL, LOW_VAL)
-    for line in open(gold_stats_file, 'r'):
+    for line in gzip.open(gold_stats_file, 'r'):
       try: pattern, count, ans, position  = line.strip().split("|||")
       except: continue
       pattern, count, ans, position = (digits_norm(pattern.strip()),
@@ -161,7 +162,7 @@ if __name__ == '__main__':
   split_points = {}
   for filename in os.listdir(gold_stats_dir):
     input_file = os.path.join(gold_stats_dir, filename)
-    f = open(input_file, 'r')
+    f = gzip.open(input_file, 'r')
     marker = f.readline().strip()
     if marker in MARKERS:
       split_points[marker] = SplitPoint(marker)

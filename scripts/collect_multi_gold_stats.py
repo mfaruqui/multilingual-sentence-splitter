@@ -1,4 +1,6 @@
 import sys
+import os
+
 from collections import Counter
 from operator import itemgetter
 
@@ -87,3 +89,5 @@ for marker in MARKERS:
   for key, val in sorted(no_left[marker].items(), key = itemgetter(1), reverse=True):
     print >> outfile, key, "|||", val, "||| no ||| left"
   num += 1
+
+os.system('gzip gold-stats/*')
