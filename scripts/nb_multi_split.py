@@ -38,7 +38,7 @@ class SplitPoint:
     if right in self.lp_right_no: lp_no_split += self.lp_right_no[right]
     else: lp_no_split += LOW_LOG_PROB
 
-    return lp_yes_split > lp_no_split
+    return lp_yes_split >= lp_no_split
 
   def read_and_normalize(self, gold_stats_file, unsup_stats_file = None):
     """ Read the statistics computed over gold data """
@@ -108,7 +108,7 @@ def split_text(test_file):
   for line in open(test_file, 'r'):
     line = line.strip().replace("''", '"')
     if not line: continue
-    line = re.sub('\.\s+"', '."', line)
+    #line = re.sub('\.\s+"', '."', line)
     words = line.split()
     sent_len = len(words)
 

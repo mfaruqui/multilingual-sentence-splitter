@@ -27,7 +27,7 @@ prev_marker = ''
 
 for line in sys.stdin:
   line = line.strip().replace("''", '"')
-  line = re.sub('\.\s+"', '."', line)
+  #line = re.sub('\.\s+"', '."', line)
   words = line.split()
 
   try: words.remove("")
