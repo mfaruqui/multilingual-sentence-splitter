@@ -26,6 +26,7 @@ prev_marker = ''
 
 for line in sys.stdin:
   line = line.strip().replace("''", '"')
+  line = re.sub('\.\s+"', '."', line)
   words = line.split()
 
   try: words.remove("")
@@ -90,4 +91,5 @@ for marker in MARKERS:
     print >> outfile, key, "|||", val, "||| no ||| left"
   num += 1
 
+os.system('rm -f gold-stats/*.gz')
 os.system('gzip gold-stats/*')

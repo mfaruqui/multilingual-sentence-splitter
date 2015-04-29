@@ -107,6 +107,7 @@ def split_text(test_file):
 
   for line in open(test_file, 'r'):
     line = line.strip().replace("''", '"')
+    line = re.sub('\.\s+"', '."', line)
     if not line: continue
     words = line.split()
     sent_len = len(words)
