@@ -2,11 +2,7 @@ import re
 import sys
 import string
 
-#MARKERS = [".", '?', ':', '"', "''", '-', ';', ')', '!']
-#MARKERS = [".", '?', ':', '"', "''", ';', ')', '!']
-#MARKERS = [".", '?', ':', '"', ';', ')', '!']
-#MARKERS = [".", '?', '"','!']
-MARKERS = ['."', ".", '?','!']
+MARKERS = ['."', '?"', '!"', ".", '?','!']
 
 LOW_LOG_PROB = -30.
 LOW_VAL = 1e-5
@@ -41,9 +37,7 @@ def get_context_of_markers_in_word(word, word_index, sent_words):
   # You can optimize all this string segmentation code
   new_word = ''
   for index, char in enumerate(word):
-    if index in all_ends:
-      new_word += ' '
-    elif index in all_begs:
+    if index in all_ends or index in all_begs:
       new_word += ' '
     new_word += char
 
@@ -94,3 +88,15 @@ def get_context_of_markers_in_word(word, word_index, sent_words):
     else:
       contexts.append(segment)
   return contexts
+
+def generate_features(marker, left, right):
+
+  features = []
+  # These features are used in Gillick's Splitta
+  features.append('Left:'+left) # Left word
+  features.append('Right:'+right) # Right word
+  features.append('LeftLen:'+str(len(left))) # Length of left word
+  features.append('RightCap:'+str(right[0].isupper()))
+  #features.append('Both:'+str((left, right)))
+  #features.append('BothRightCap'+str((left, right[0].isupper())))
+  return features
