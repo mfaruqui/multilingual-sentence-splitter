@@ -22,7 +22,7 @@ class SplitPoint:
   def __init__(self, s):
     self.marker = s  # what is the substring for split
     self.features = {} # mapping features to an index integer
-    self.decision_model = BernoulliNB() #LogisticRegression()
+    self.decision_model = LogisticRegression() #BernoulliNB is very slow
 
   def featurize(self, features):
     """ Featurize the data point """
@@ -36,7 +36,7 @@ class SplitPoint:
   def decide_to_split(self, left, right):
     """ Model for decision making about the sentence split """
 
-    # If th emodel could not be trained: split
+    # If the model could not be trained: split
     if not self.features:
       return True
 
