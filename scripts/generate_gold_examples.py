@@ -27,7 +27,7 @@ for line in sys.stdin:
   if add_first_word_to_yes and prev_marker and prev_left:
     examples[prev_marker][(prev_left, digits_norm(words[0]), "yes")] += 1
     prev_left, prev_marker = ('', '')
-    add_first_word_to_yes_right = False
+    add_first_word_to_yes = False
 
   num_words = len(words)
   for word_index, word in enumerate(words):

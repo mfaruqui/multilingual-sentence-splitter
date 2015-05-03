@@ -39,27 +39,27 @@ def split_text(split_points, test_file):
           num_sent += 1.
         else:
           print marker,
-        continue
-
-      contexts = get_context_of_markers_in_word(word, word_index, words)
-      if contexts:
-        new_word = ''
-        for context_ix, context in enumerate(contexts):
-          if not isinstance(context, str):
-            marker, left, right = context
-            left, right = (digits_norm(left), digits_norm(right))
-            marker_obj = split_points[marker]
-            if marker_obj.decide_to_split(left, right):
-              new_word += marker + '\n'
-              num_sent += 1.
+      elif contains_markers(word):
+        contexts = get_context_of_markers_in_word(word, word_index, words)
+        if contexts:
+          new_word = ''
+          for context_ix, context in enumerate(contexts):
+            if not isinstance(context, str):
+              marker, left, right = context
+              left, right = (digits_norm(left), digits_norm(right))
+              marker_obj = split_points[marker]
+              if marker_obj.decide_to_split(left, right):
+                new_word += marker + '\n'
+                num_sent += 1.
+              else:
+                new_word += marker
             else:
-              new_word += marker
-          else:
-            new_word += context
-        print new_word,
-        continue
-      print word,
-
+              new_word += context
+          print new_word,
+        else:
+          print word,
+      else:
+        print word,
     num_sent += 1.
 
   end_time = time.time()

@@ -7,6 +7,11 @@ MARKERS = ['."', '?"', '!"', ".", '?','!']
 LOW_LOG_PROB = -30.
 LOW_VAL = 1e-5
 
+def contains_markers(s):
+  for marker in MARKERS:
+    if s.find(marker) != -1:
+      return True
+
 def find_marker_occurrences(s, marker):
   index = 0
   occurrences = []
